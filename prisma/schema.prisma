@@ -17,3 +17,12 @@ model Users {
 
   @@map("users")
 }
+
+model Attachments {
+  id          Int     @id @default(autoincrement())
+  name        String  
+  link        String
+  type        String @default("resume")
+
+  @@map("applications")
+}
