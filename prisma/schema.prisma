@@ -26,3 +26,12 @@ model Attachments {
 
   @@map("applications")
 }
+
+model Steps {
+  id            Int     @id @default(autoincrement())
+  name          String  
+  deadline      DateTime
+  itsFinished    Boolean  @default(false)
+
+  @@map("steps")
+}
