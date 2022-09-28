@@ -17,6 +17,7 @@ model Users {
 
   aplicattions     Applications[]
   attachments      Attachments[]
+  steps            Steps[]
 
 
   @@map("users")
@@ -62,3 +63,13 @@ enum AttachmentsType {
   others
 }
 
+model Steps {
+  id            Int       @id @default(autoincrement())
+  name          String  
+  deadline      DateTime
+  itsFinished   Boolean   @default(false)
+  user          Users     @relation(fields:[userId], references: [id])
+  userId        Int
+
+  @@map("steps")
+}
