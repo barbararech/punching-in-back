@@ -7,7 +7,7 @@
     "test:integration": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test -- jest -i --testPathPattern=tests/integration",
     "test:unit": "dotenv -e .env.test jest -- -i --coverage --collectCoverageFrom=src/services/recommendationsService.ts --testPathPattern=tests/unit",
     "start": "node dist/src/server.js",
-    "dev": "dotenv -e .env.test  nodemon src/server.ts",
+    "dev": "dotenv -e .env  nodemon src/server.ts",
     "build": "tsc && npx prisma generate && npx prisma migrate deploy"
   },
   "keywords": [],
@@ -26,11 +26,13 @@
     "pg": "^8.8.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.14",
     "@types/jest": "^29.0.3",
     "@types/joi": "^17.2.3",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.23",
     "@types/supertest": "^2.0.12",
     "dotenv-cli": "^6.0.0",
