@@ -2,8 +2,13 @@ import * as userService from "../services/userService";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Users } from "@prisma/client";
+import { unauthorizedError } from "../utils/errorUtils";
 
-export async function signUp(email: string, password: string, username:string) {
+export async function signUp(
+  email: string,
+  password: string,
+  username: string
+) {
   const passwordCrypt = bcrypt.hashSync(password, 10);
   const user = { email, password: passwordCrypt, username };
 
@@ -25,11 +30,7 @@ export async function checkPassword(user: Users, password: string) {
   const checkPassword = bcrypt.compareSync(password, user.password);
 
   if (!checkPassword) {
-    throw {
-      status: 401,
-      message: "Unauthorized!",
-    };
+    throw unauthorizedError("Unauthorized!");
   }
-
   return;
 }

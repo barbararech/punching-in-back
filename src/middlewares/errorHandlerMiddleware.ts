@@ -12,7 +12,7 @@ export function errorHandlerMiddleware(
   next: NextFunction
 ) {
   console.log(err);
-
+  console.log(isAppError)
   if (isAppError(err)) {
     return res.status(errorTypeToStatusCode(err.type)).send(err.message);
   }
