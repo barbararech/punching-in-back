@@ -17,9 +17,6 @@ model Users {
   username         String
 
   aplicattions     Applications[]
-  attachments      Attachments[]
-  steps            Steps[]
-
 
   @@map("users")
 }
@@ -36,6 +33,9 @@ model Applications {
   user             Users                 @relation(fields:[userId], references: [id])
   userId           Int
 
+  attachments      Attachments[]
+  steps            Steps[]
+
   @@map("applications")
 }
 
@@ -46,12 +46,12 @@ enum ApplicationType {
 }
 
 model Attachments {
-  id          Int      @id @default(autoincrement())
-  name        String  
-  link        String
-  type        String   @default("resume")
-  user        Users    @relation(fields:[userId], references: [id])
-  userId      Int
+  id                  Int             @id @default(autoincrement())
+  name                String         
+  link                String       
+  type                String          @default("resume")
+  applications        Applications    @relation(fields:[applicationsId], references: [id])
+  applicationsId      Int
 
   @@map("attachments")
 }
@@ -65,12 +65,12 @@ enum AttachmentsType {
 }
 
 model Steps {
-  id            Int       @id @default(autoincrement())
-  name          String  
-  deadline      DateTime
-  itsFinished   Boolean   @default(false)
-  user          Users     @relation(fields:[userId], references: [id])
-  userId        Int
+  id                  Int             @id @default(autoincrement())
+  name                String        
+  deadline            DateTime      
+  itsFinished         Boolean         @default(false)
+  applications        Applications    @relation(fields:[applicationsId], references: [id])
+  applicationsId      Int
 
   @@map("steps")
 }
