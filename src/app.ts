@@ -5,6 +5,7 @@ import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 import dotenv from "dotenv";
 import authRouter from "./routers/authRouter";
 import applicationRouter from "./routers/applicationRouter";
+import attachmentRouter from "./routers/attachmentRouter";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(errorHandlerMiddleware);
 app.use(authRouter);
 app.use(applicationRouter);
+app.use(attachmentRouter);
 
 if (process.env.NODE_ENV === "test") {
   console.log("test environment");
