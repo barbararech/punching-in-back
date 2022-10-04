@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import authRouter from "./routers/authRouter";
 import applicationRouter from "./routers/applicationRouter";
 import attachmentRouter from "./routers/attachmentRouter";
+import stepRouter from "./routers/stepRouter";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(errorHandlerMiddleware);
 app.use(authRouter);
 app.use(applicationRouter);
 app.use(attachmentRouter);
+app.use(stepRouter);
 
 if (process.env.NODE_ENV === "test") {
   console.log("test environment");

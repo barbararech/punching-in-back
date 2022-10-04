@@ -16,7 +16,7 @@ model Users {
   password         String
   username         String
 
-  aplicattions     Applications[]
+  applications     Applications[]
 
   @@map("users")
 }
