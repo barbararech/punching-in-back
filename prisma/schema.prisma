@@ -67,7 +67,7 @@ enum AttachmentsType {
 model Steps {
   id                  Int             @id @default(autoincrement())
   name                String        
-  deadline            DateTime      
+  deadline            String      
   itsFinished         Boolean         @default(false)
   applications        Applications    @relation(fields:[applicationId], references: [id])
   applicationId      Int
