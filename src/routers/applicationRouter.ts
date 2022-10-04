@@ -6,11 +6,11 @@ import { applicationSchema } from "../schemas/applicationSchema";
 
 const router = Router();
 
-// router.get(
-//   "/applications",
-//   tokenValidationMiddleware,
-//   applicationController.viewApplications
-// );
+router.get(
+  "/applications",
+  tokenValidationMiddleware,
+  applicationController.viewApplications
+);
 
 router.post(
   "/applications/new",

@@ -2,7 +2,6 @@ import * as attachmentRepository from "../repositories/attachmentRepository";
 import { INewAttachment } from "../types/attachmentsTypes";
 
 export async function newAttachment(attachment: INewAttachment) {
-  console.log(attachment);
 
   await attachmentRepository.insertAttachments(attachment);
   return;

@@ -10,36 +10,21 @@ export async function newApplication(
   application: INewApplication,
   userId: number
 ) {
-  // const applicationData = application;
 
   application["userId"] = userId;
 
   console.log(application);
-  // console.log(applicationData);
 
-  // const applicationDataWithId: INewApplication = applicationData.userId=userId;
   const newApplication = await applicationRepository.insertNewApplication(
     application
   );
-
-  // const applicationId = newApplication.id;
-
-  // const attachments = [...application.attachments, applicationId, userId];
-  // const steps = [...application.steps, applicationId, userId];
-
-  // console.log(applicationData);
-  // console.log(attachments);
-  // console.log(steps);
-  // await applicationRepository.insertAttachments(attachments);
-
-  // await applicationRepository.insertSteps(steps);
   return newApplication;
 }
 
-// export async function viewApplications() {
-//   const applications = await applicationRepository.getAllApplications();
-//   return applications;
-// }
+export async function viewApplications(userId:number) {
+  const applications = await applicationRepository.getAllApplications(userId);
+  return applications;
+}
 
 // export async function editApplication(application: any, applicationId: number) {
 //   const updatedApplication = await applicationRepository.updateApplicationById(

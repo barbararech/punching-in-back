@@ -9,14 +9,27 @@ export async function insertNewApplication(application: INewApplication) {
   });
 }
 
-export async function insertAttachments(attachments: INewAttachment) {
-  return prisma.attachments.create({
-    data: attachments,
-  });
-}
-
-export async function insertSteps(steps: INewStep) {
-  return prisma.steps.create({
-    data: steps,
+export async function getAllApplications(userId: number) {
+  return await prisma.applications.findMany({
+    select: {
+      attachments: {
+        select: {
+          name: true,
+          link: true,
+          type: true,
+        },
+      },
+      steps: {
+        select: {
+          name: true,
+          deadline: true,
+          itsFinished: true,
+        },
+      },
+    },
+    where: {
+      userId: userId,
+    },
+    orderBy: { id: "desc" },
   });
 }

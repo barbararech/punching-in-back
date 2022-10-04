@@ -4,7 +4,7 @@ import { INewAttachment } from "../types/attachmentsTypes";
 import { INewStep } from "../types/stepsTypes";
 
 export async function insertAttachments(attachments: INewAttachment) {
-  return prisma.attachments.create({
+  return prisma.attachments.createMany({
     data: attachments,
   });
 }
