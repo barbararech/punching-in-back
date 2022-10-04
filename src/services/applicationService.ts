@@ -34,14 +34,10 @@ export async function viewArchivedApplications(userId: number) {
   return applications;
 }
 
-// export async function editApplication(application: any, applicationId: number) {
-//   const updatedApplication = await applicationRepository.updateApplicationById(
-//     applicationId
-//   );
+export async function archiveCardToggle(application: any, applicationId: number) {
+  const updatedApplication = await applicationRepository.updateArchiveApplicationById(
+   application,  applicationId
+  );
 
-//   if (!application) {
-//     throw notFoundError("This application doesn't exist!");
-//   }
-
-//   return updatedApplication;
-// }
+  return updatedApplication;
+}

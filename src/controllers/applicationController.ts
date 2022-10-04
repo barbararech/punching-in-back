@@ -24,10 +24,10 @@ export async function viewArchivedApplications(req: Request, res: Response) {
   return res.status(201).send({ applications });
 }
 
-// export async function editApplication(req: Request, res: Response) {
-//   const applicationId = Number(req.params.id);
-//   const application = req.body;
-
-//   await applicationService.editApplication(application, applicationId);
-//   return res.status(200).send("Application updated successfully!");
-// }
+export async function archiveCardToggle(req: Request, res: Response) {
+  const applicationId = Number(req.params.id);
+  const application = req.body;
+  console.log(application)
+  await applicationService.archiveCardToggle(application, applicationId);
+  return res.status(200).send("Application updated successfully!");
+}

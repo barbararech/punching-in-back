@@ -13,10 +13,10 @@ export async function getAllUnarchivedApplications(userId: number) {
   return await prisma.applications.findMany({
     where: {
       userId: userId,
-      itsArchived:false,
+      itsArchived: false,
     },
     select: {
-      id:true,
+      id: true,
       companyName: true,
       roleName: true,
       heardBack: true,
@@ -47,10 +47,10 @@ export async function getAllArchivedApplications(userId: number) {
   return await prisma.applications.findMany({
     where: {
       userId: userId,
-      itsArchived:true,
+      itsArchived: true,
     },
     select: {
-      id:true,
+      id: true,
       companyName: true,
       roleName: true,
       heardBack: true,
@@ -74,5 +74,19 @@ export async function getAllArchivedApplications(userId: number) {
       },
     },
     orderBy: { id: "desc" },
+  });
+}
+
+export async function updateArchiveApplicationById(
+  application: INewApplication,
+  applicationId: number
+) {
+  return prisma.applications.update({
+    where: {
+      id: applicationId,
+    },
+    data: {
+      itsArchived: application.itsArchived,
+    },
   });
 }

@@ -25,11 +25,10 @@ router.post(
   applicationController.newApplication
 );
 
-// router.put(
-//   "/applications/:id/edit",
-//   tokenValidationMiddleware,
-//   middleware(applicationSchema),
-//   applicationController.editApplication
-// );
+router.put(
+  "/applications/:id/edit",
+  tokenValidationMiddleware,
+  applicationController.archiveCardToggle
+);
 
 export default router;
