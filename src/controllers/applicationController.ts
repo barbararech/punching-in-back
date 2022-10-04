@@ -18,6 +18,12 @@ export async function viewUnarchivedApplications(req: Request, res: Response) {
   return res.status(201).send({ applications });
 }
 
+export async function viewArchivedApplications(req: Request, res: Response) {
+  const userId = res.locals.id;
+  const applications = await applicationService.viewArchivedApplications(userId);
+  return res.status(201).send({ applications });
+}
+
 // export async function editApplication(req: Request, res: Response) {
 //   const applicationId = Number(req.params.id);
 //   const application = req.body;

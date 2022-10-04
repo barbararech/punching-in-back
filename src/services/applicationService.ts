@@ -27,6 +27,13 @@ export async function viewUnarchivedApplications(userId: number) {
   return applications;
 }
 
+export async function viewArchivedApplications(userId: number) {
+  const applications = await applicationRepository.getAllArchivedApplications(
+    userId
+  );
+  return applications;
+}
+
 // export async function editApplication(application: any, applicationId: number) {
 //   const updatedApplication = await applicationRepository.updateApplicationById(
 //     applicationId

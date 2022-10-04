@@ -12,6 +12,12 @@ router.get(
   applicationController.viewUnarchivedApplications
 );
 
+router.get(
+  "/applications/archived",
+  tokenValidationMiddleware,
+  applicationController.viewArchivedApplications
+);
+
 router.post(
   "/applications/new",
   tokenValidationMiddleware,
