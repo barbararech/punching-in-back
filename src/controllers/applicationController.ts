@@ -12,9 +12,9 @@ export async function newApplication(req: Request, res: Response) {
   return res.status(201).send(createdApplication);
 }
 
-export async function viewApplications(req: Request, res: Response) {
+export async function viewUnarchivedApplications(req: Request, res: Response) {
   const userId = res.locals.id;
-  const applications = await applicationService.viewApplications(userId);
+  const applications = await applicationService.viewUnarchivedApplications(userId);
   return res.status(201).send({ applications });
 }
 

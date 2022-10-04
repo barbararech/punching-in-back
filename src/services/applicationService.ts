@@ -10,7 +10,6 @@ export async function newApplication(
   application: INewApplication,
   userId: number
 ) {
-
   application["userId"] = userId;
 
   console.log(application);
@@ -21,8 +20,10 @@ export async function newApplication(
   return newApplication;
 }
 
-export async function viewApplications(userId:number) {
-  const applications = await applicationRepository.getAllApplications(userId);
+export async function viewUnarchivedApplications(userId: number) {
+  const applications = await applicationRepository.getAllUnarchivedApplications(
+    userId
+  );
   return applications;
 }
 

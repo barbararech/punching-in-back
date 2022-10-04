@@ -9,7 +9,7 @@ const router = Router();
 router.get(
   "/applications",
   tokenValidationMiddleware,
-  applicationController.viewApplications
+  applicationController.viewUnarchivedApplications
 );
 
 router.post(
