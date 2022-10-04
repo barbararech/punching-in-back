@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as stepService from "../services/stepService";
 
 export async function newstep(req: Request, res: Response) {
-  const step = req.body;
+  const step = req.body.steps;
 
   const createdStep = await stepService.newStep(step);
   return res.status(201).send(createdStep);

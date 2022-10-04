@@ -2,7 +2,7 @@ import { prisma } from "../database";
 import { INewStep } from "../types/stepsTypes";
 
 export async function insertsteps(steps: INewStep) {
-  return prisma.steps.create({
+  return prisma.steps.createMany({
     data: steps,
   });
 }
