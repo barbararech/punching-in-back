@@ -16,6 +16,7 @@ export async function getAllUnarchivedApplications(userId: number) {
       itsArchived:false,
     },
     select: {
+      id:true,
       companyName: true,
       roleName: true,
       heardBack: true,
@@ -49,6 +50,7 @@ export async function getAllArchivedApplications(userId: number) {
       itsArchived:true,
     },
     select: {
+      id:true,
       companyName: true,
       roleName: true,
       heardBack: true,
