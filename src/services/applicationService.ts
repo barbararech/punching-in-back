@@ -12,8 +12,6 @@ export async function newApplication(
 ) {
   application["userId"] = userId;
 
-  console.log(application);
-
   const newApplication = await applicationRepository.insertNewApplication(
     application
   );
@@ -34,10 +32,21 @@ export async function viewArchivedApplications(userId: number) {
   return applications;
 }
 
-export async function archiveCardToggle(application: any, applicationId: number) {
-  const updatedApplication = await applicationRepository.updateArchiveApplicationById(
-   application,  applicationId
-  );
+export async function archiveApplicationToggle(
+  application: any,
+  applicationId: number
+) {
+  const updatedApplication =
+    await applicationRepository.updateArchiveApplicationById(
+      application,
+      applicationId
+    );
 
   return updatedApplication;
+}
+
+export async function deleteApplication(applicationId: number) {
+  await applicationRepository.deleteApplicationById(applicationId);
+
+  return;
 }

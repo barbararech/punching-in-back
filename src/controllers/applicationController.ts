@@ -14,20 +14,29 @@ export async function newApplication(req: Request, res: Response) {
 
 export async function viewUnarchivedApplications(req: Request, res: Response) {
   const userId = res.locals.id;
-  const applications = await applicationService.viewUnarchivedApplications(userId);
+  const applications = await applicationService.viewUnarchivedApplications(
+    userId
+  );
   return res.status(201).send({ applications });
 }
 
 export async function viewArchivedApplications(req: Request, res: Response) {
   const userId = res.locals.id;
-  const applications = await applicationService.viewArchivedApplications(userId);
+  const applications = await applicationService.viewArchivedApplications(
+    userId
+  );
   return res.status(201).send({ applications });
 }
 
-export async function archiveCardToggle(req: Request, res: Response) {
+export async function archiveApplicationToggle(req: Request, res: Response) {
   const applicationId = Number(req.params.id);
   const application = req.body;
-  console.log(application)
-  await applicationService.archiveCardToggle(application, applicationId);
+  await applicationService.archiveApplicationToggle(application, applicationId);
   return res.status(200).send("Application updated successfully!");
+}
+
+export async function deleteApplication(req: Request, res: Response) {
+  const applicationId = Number(req.params.id);
+  await applicationService.deleteApplication(applicationId);
+  return res.status(200).send("Application delete successfully!");
 }

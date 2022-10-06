@@ -50,7 +50,7 @@ model Attachments {
   name                String         
   link                String       
   type                AttachmentsType  @default(resume)
-  applications        Applications     @relation(fields:[applicationId], references: [id])
+  applications        Applications     @relation(fields:[applicationId], references: [id], onDelete: Cascade)
   applicationId       Int
 
   @@map("attachments")
@@ -69,7 +69,7 @@ model Steps {
   name                String        
   deadline            String      
   itsFinished         Boolean         @default(false)
-  applications        Applications    @relation(fields:[applicationId], references: [id])
+  applications        Applications    @relation(fields:[applicationId], references: [id], onDelete: Cascade)
   applicationId      Int
 
   @@map("steps")

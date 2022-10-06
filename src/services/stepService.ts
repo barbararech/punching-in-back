@@ -2,8 +2,6 @@ import * as stepRepository from "../repositories/stepRepository";
 import { INewStep } from "../types/stepsTypes";
 
 export async function newStep(step: INewStep) {
-  console.log(step);
-
   await stepRepository.insertsteps(step);
   return;
 }

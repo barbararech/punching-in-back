@@ -90,3 +90,11 @@ export async function updateArchiveApplicationById(
     },
   });
 }
+
+export async function deleteApplicationById(applicationId: number) {
+  return prisma.applications.delete({
+    where: {
+      id: applicationId,
+    },
+  });
+}

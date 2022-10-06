@@ -3,7 +3,6 @@ import { ObjectSchema } from "joi";
 
 export const middleware = (schema: ObjectSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body)
     const validation = schema.validate(req.body, { abortEarly: false });
 
     if (validation.error) {
