@@ -1,4 +1,4 @@
-import * as userRepository from "../repositories/userRepository";
+import {userRepository } from "../repositories/userRepository";
 import { INewUser } from "../types/userTypes";
 import { conflictError, unauthorizedError } from "../utils/errorUtils";
 
