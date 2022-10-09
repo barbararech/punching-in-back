@@ -50,6 +50,7 @@ export async function deleteApplication(applicationId: number) {
 }
 
 export async function viewApplication(applicationId: number) {
+  console.log(applicationId)
   const application = await applicationRepository.viewApplicationById(
     applicationId
   );

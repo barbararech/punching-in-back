@@ -13,7 +13,7 @@ router.get(
 );
 
 router.get(
-  "/applications/:id",
+  "/applications/:id/view",
   tokenValidationMiddleware,
   applicationController.viewApplication
 );

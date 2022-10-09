@@ -100,7 +100,7 @@ export async function deleteApplicationById(applicationId: number) {
 }
 
 export async function viewApplicationById(applicationId: number) {
-  return prisma.applications.findUnique({
+  return prisma.applications.findFirst({
     where: {
       id: applicationId,
     },
