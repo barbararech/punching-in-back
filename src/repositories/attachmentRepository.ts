@@ -22,13 +22,13 @@ export async function updateAttachment(attachments: any) {
   return await prisma.$transaction(
     attachments.map((attachment: any) =>
       prisma.attachments.upsert({
-        where: { id: attachment.id },
+        create: attachment,
         update: {
           name: attachment.name,
           link: attachment.link,
           type: attachment.type,
         },
-        create: attachment,
+        where: { id: attachment.id || 0 },
       })
     )
   );

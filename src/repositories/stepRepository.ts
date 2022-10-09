@@ -20,7 +20,7 @@ export async function updateStep(steps: any) {
   return await prisma.$transaction(
     steps.map((step: any) =>
       prisma.steps.upsert({
-        where: { id: step.id },
+        where: { id: step.id || 0 },
         update: {
           name: step.name,
           deadline: step.deadline,

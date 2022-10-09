@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Users {
-  id               Int     @id @default(autoincrement())
+  id               Int     @id @default(autoincrement())  @unique
   email            String  @unique
   password         String
   username         String
@@ -22,7 +22,7 @@ model Users {
 }
 
 model Applications {
-  id               Int                  @id @default(autoincrement())
+  id               Int                  @id @default(autoincrement()) @unique
   companyName      String  
   roleName         String
   heardBack        Boolean              @default(false)
@@ -46,7 +46,7 @@ enum ApplicationType {
 }
 
 model Attachments {
-  id                  Int              @id @default(autoincrement())
+  id                  Int              @id @default(autoincrement()) @unique
   name                String         
   link                String       
   type                AttachmentsType  @default(resume)
@@ -65,7 +65,7 @@ enum AttachmentsType {
 }
 
 model Steps {
-  id                  Int             @id @default(autoincrement())
+  id                  Int             @id @default(autoincrement())  @unique
   name                String        
   deadline            String      
   itsFinished         Boolean         @default(false)
