@@ -6,11 +6,11 @@ import { stepSchema } from "../schemas/stepSchema";
 
 const router = Router();
 
-// router.get(
-//   "/steps",
-//   tokenValidationMiddleware,
-//   stepController.viewsteps
-// );
+router.get(
+  "/applications/:id/steps",
+  tokenValidationMiddleware,
+  stepController.viewStepsByApplicationId
+);
 
 router.post(
   "/steps/new",
