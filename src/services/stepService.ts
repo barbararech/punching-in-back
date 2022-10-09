@@ -6,19 +6,12 @@ export async function newStep(step: INewStep) {
   return;
 }
 
-export async function viewStepsByApplicationId(applicationId:number) {
+export async function viewStepsByApplicationId(applicationId: number) {
   const steps = await stepRepository.getStepsByApplicationId(applicationId);
   return steps;
 }
 
-// export async function editstep(step: any, stepId: number) {
-//   const updatedstep = await stepRepository.updatestepById(
-//     stepId
-//   );
-
-//   if (!step) {
-//     throw notFoundError("This step doesn't exist!");
-//   }
-
-//   return updatedstep;
-// }
+export async function editStep(steps: INewStep) {
+  await stepRepository.updateStep(steps);
+  return;
+}

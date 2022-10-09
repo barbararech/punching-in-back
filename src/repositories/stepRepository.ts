@@ -15,12 +15,20 @@ export async function getStepsByApplicationId(applicationId: number) {
   });
 }
 
-// await prisma.$transaction(
-//   posts.map((post) =>
-//     prisma.post.upsert({
-//       where: { id: post.id },
-//       update: { text: post.text, userId: post.userId },
-//       create: post,
-//     })
-//   )
-// );
+export async function updateStep(steps: any) {
+  console.log(steps)
+  return await prisma.$transaction(
+    steps.map((step: any) =>
+      prisma.steps.upsert({
+        where: { id: step.id },
+        update: {
+          name: step.name,
+          deadline: step.deadline,
+          itsFinished: step.itsFinished,
+        },
+        create: step,
+      })
+    )
+  );
+}
+

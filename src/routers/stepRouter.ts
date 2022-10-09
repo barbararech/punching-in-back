@@ -19,11 +19,11 @@ router.post(
   stepController.newstep
 );
 
-// router.put(
-//   "/steps/:id/edit",
-//   tokenValidationMiddleware,
-//   middleware(stepSchema),
-//   stepController.editstep
-// );
+router.put(
+  "/steps/edit",
+  tokenValidationMiddleware,
+  middleware(stepSchema),
+  stepController.editStep
+);
 
 export default router;

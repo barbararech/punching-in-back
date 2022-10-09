@@ -14,10 +14,8 @@ export async function viewStepsByApplicationId(req: Request, res: Response) {
   return res.status(200).send({ steps });
 }
 
-// export async function editstep(req: Request, res: Response) {
-//   const stepId = Number(req.params.id);
-//   const step = req.body;
-
-//   await stepService.editstep(step, stepId);
-//   return res.status(200).send("step updated successfully!");
-// }
+export async function editStep(req: Request, res: Response) {
+  const steps = req.body.steps;
+  await stepService.editStep(steps);
+  return res.status(200).send("Steps updated successfully!");
+}

@@ -4,6 +4,7 @@ const Joi = require('joi')
     .extend(require('@joi/date'));
 
 export const step = joi.object({
+  id:joi.number(),
   name: joi.string().required(),
   deadline: Joi.date().format('DD/MM/YYYY').required(),
   itsFinished: joi.boolean().required(),
