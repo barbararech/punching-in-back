@@ -12,14 +12,7 @@ export async function viewAttachmentsByApplicationId(applicationId:number) {
   return attachments;
 }
 
-// export async function editattachment(attachment: any, attachmentId: number) {
-//   const updatedattachment = await attachmentRepository.updateattachmentById(
-//     attachmentId
-//   );
-
-//   if (!attachment) {
-//     throw notFoundError("This attachment doesn't exist!");
-//   }
-
-//   return updatedattachment;
-// }
+export async function editAttachment(attachments: INewAttachment) {
+  await attachmentRepository.updateAttachment(attachments);
+  return;
+}

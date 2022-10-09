@@ -1,6 +1,7 @@
 import joi from "joi";
 
 export const attachment = joi.object({
+  id: joi.number(),
   name: joi.string().required(),
   link: joi.string().uri().required(),
   type: joi

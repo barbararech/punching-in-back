@@ -15,10 +15,10 @@ export async function viewAttachmentsByApplicationId(req: Request, res: Response
 }
 
 
-// export async function editAttachment(req: Request, res: Response) {
-//   const attachmentId = Number(req.params.id);
-//   const attachment = req.body;
 
-//   await attachmentService.editattachment(attachment, attachmentId);
-//   return res.status(200).send("attachment updated successfully!");
-// }
+export async function editAttachment(req: Request, res: Response) {
+  const attachments = req.body.attachments;
+  console.log(attachments)
+  await attachmentService.editAttachment(attachments);
+  return res.status(200).send("Attachment updated successfully!");
+}

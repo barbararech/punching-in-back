@@ -16,3 +16,20 @@ export async function getAttachmentsByApplicationId(applicationId: number) {
     },
   });
 }
+
+export async function updateAttachment(attachments: any) {
+  console.log(attachments);
+  return await prisma.$transaction(
+    attachments.map((attachment: any) =>
+      prisma.attachments.upsert({
+        where: { id: attachment.id },
+        update: {
+          name: attachment.name,
+          link: attachment.link,
+          type: attachment.type,
+        },
+        create: attachment,
+      })
+    )
+  );
+}

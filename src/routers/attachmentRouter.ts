@@ -19,11 +19,12 @@ router.post(
   attachmentController.newAttachment
 );
 
-// router.put(
-//   "/attachments/:id/edit",
-//   tokenValidationMiddleware,
-//   middleware(attachmentSchema),
-//   attachmentController.editAttachment
-// );
+router.put(
+  "/attachments/edit",
+  tokenValidationMiddleware,
+  middleware(attachmentSchema),
+  attachmentController.editAttachment
+);
+
 
 export default router;
