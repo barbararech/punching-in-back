@@ -106,3 +106,15 @@ export async function viewApplicationById(applicationId: number) {
     },
   });
 }
+
+export async function updateApplication(
+  application: INewApplication,
+  applicationId: number
+) {
+  return prisma.applications.update({
+    where: {
+      id: applicationId,
+    },
+    data: application,
+  });
+}

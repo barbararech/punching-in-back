@@ -33,7 +33,7 @@ router.post(
 );
 
 router.put(
-  "/applications/:id/edit",
+  "/applications/:id/archive",
   tokenValidationMiddleware,
   applicationController.archiveApplicationToggle
 );
@@ -42,6 +42,12 @@ router.delete(
   "/applications/:id/delete",
   tokenValidationMiddleware,
   applicationController.deleteApplication
+);
+
+router.put(
+  "/applications/:id/edit",
+  tokenValidationMiddleware,
+  applicationController.updateApplication
 );
 
 export default router;

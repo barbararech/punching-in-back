@@ -3,7 +3,6 @@ import { notFoundError } from "../utils/errorUtils";
 import { INewApplication } from "../types/applicationsTypes";
 import { INewAttachment } from "../types/attachmentsTypes";
 import { INewStep } from "../types/stepsTypes";
-// import { IApplicationBody } from "../types/applicationsTypes";
 import { object } from "joi";
 
 export async function newApplication(
@@ -33,7 +32,7 @@ export async function viewArchivedApplications(userId: number) {
 }
 
 export async function archiveApplicationToggle(
-  application: any,
+  application: INewApplication,
   applicationId: number
 ) {
   const updatedApplication =
@@ -51,6 +50,16 @@ export async function deleteApplication(applicationId: number) {
 }
 
 export async function viewApplication(applicationId: number) {
-  const application = await applicationRepository.viewApplicationById(applicationId);
+  const application = await applicationRepository.viewApplicationById(
+    applicationId
+  );
   return application;
+}
+
+export async function updateApplication(application: INewApplication, applicationId:number) {
+  const updatedApplication = await applicationRepository.updateApplication(
+    application, applicationId
+  );
+
+  return updatedApplication;
 }

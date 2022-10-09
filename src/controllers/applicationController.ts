@@ -46,3 +46,10 @@ export async function viewApplication(req: Request, res: Response) {
   const application = await applicationService.viewApplication(applicationId);
   return res.status(200).send({application});
 }
+
+export async function updateApplication(req: Request, res: Response) {
+  const applicationId = Number(req.params.id);
+  const application = req.body;
+  await applicationService.updateApplication(application, applicationId);
+  return res.status(200).send("Application updated successfully!");
+}
