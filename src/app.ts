@@ -14,11 +14,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(errorHandlerMiddleware);
 app.use(authRouter);
 app.use(applicationRouter);
 app.use(attachmentRouter);
 app.use(stepRouter);
+app.use(errorHandlerMiddleware);
 
 if (process.env.NODE_ENV === "test") {
   console.log("test environment");

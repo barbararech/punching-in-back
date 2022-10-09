@@ -1,201 +1,37 @@
-// import supertest from "supertest";
-// import { jest } from "@jest/globals";
-// import app from "../../src/app";
-// import { prisma } from "../../src/database";
-// import recommendationListFactory from "./factories/recommendationListFactory";
+import supertest from "supertest";
+import app from "../../src/app";
+import createUserFactory from "./factories/createUserFactory";
+import { prisma } from "../../src/database";
+import { conflictError } from "../../src/utils/errorUtils";
 
-// beforeEach(async () => {
-//   await prisma.$executeRaw`TRUNCATE TABLE "recommendations" RESTART IDENTITY`;
-// });
+beforeEach(async () => {
+  await prisma.$executeRaw`TRUNCATE TABLE "users"  RESTART IDENTITY CASCADE`;
+});
 
-// describe("Test POST /recommendations", () => {
-//   it("Should return 200 if post recommendation correctly", async () => {
-//     const recommendation = await recommendationDataFactory();
-//     const result = await supertest(app)
-//       .post(`/recommendations`)
-//       .send(recommendation);
+describe("Test POST /signup", () => {
+  it("Should return 201 if registered an user in the correct format", async () => {
+    const user = await createUserFactory();
 
-//     const createdRecommendation = await prisma.recommendation.findFirst({
-//       where: { name: recommendation.name },
-//     });
+    const result = await supertest(app).post(`/signup`).send(user);
 
-//     expect(result.status).toBe(201);
-//     expect(createdRecommendation).toBeInstanceOf(Object);
-//   });
+    const createdUser = await prisma.users.findFirst({
+      where: { email: user.email },
+    });
 
-//   it("Should return 409 if registered a recommendation that already exists", async () => {
-//     const recommendation = await recommendationDataFactory();
+    expect(result.status).toBe(201);
+    expect(createdUser).toBeInstanceOf(Object);
+  });
 
-//     await supertest(app).post(`/recommendations`).send(recommendation);
-//     const result = await supertest(app)
-//       .post(`/recommendations`)
-//       .send(recommendation);
+  it("Should return 409 if registered a user that already exists", async () => {
+    const user = await createUserFactory();
 
-//     expect(result.status).toBe(409);
-//   });
-// });
+    await supertest(app).post(`/signup`).send(user);
+    const result = await supertest(app).post(`/signup`).send(user);
 
-// describe("Test POST /recommendations/:id/upvote", () => {
-//   it("Should return 200 if voting on the recommendation correctly", async () => {
-//     const createdRecommendation = await recommendationFactory();
+    expect(result.status).toBe(409);
+  });
+});
 
-//     const result = await supertest(app)
-//       .post(`/recommendations/${createdRecommendation.id}/upvote`)
-//       .send();
-
-//     expect(result.status).toBe(200);
-//   });
-
-//   it("Should return 404 if voting for a recommendation that doesn't exist", async () => {
-//     const result = await supertest(app)
-//       .post(`/recommendations/${0}/upvote`)
-//       .send();
-
-//     expect(result.status).toBe(404);
-//   });
-// });
-
-// describe("Test POST /recommendations/:id/downvote", () => {
-//   it("Should return 200 if voting on the recommendation correctly if score is more than -5", async () => {
-//     const createdRecommendation = await recommendationFactory();
-
-//     const result = await supertest(app)
-//       .post(`/recommendations/${createdRecommendation.id}/downvote`)
-//       .send();
-
-//     expect(result.status).toBe(200);
-//   });
-
-//   it("Should return 200 if voting on the recommendation correctly if score is less than -5", async () => {
-//     const createdRecommendation = await recommendationFactory();
-
-//     await prisma.recommendation.update({
-//       where: { name: createdRecommendation.name },
-//       data: {
-//         score: -5,
-//       },
-//     });
-
-//     const result = await supertest(app)
-//       .post(`/recommendations/${createdRecommendation.id}/downvote`)
-//       .send();
-
-//     const findMusic = await prisma.recommendation.findFirst({
-//       where: { name: createdRecommendation.name },
-//     });
-
-//     expect(result.status).toBe(200);
-//     expect(findMusic).toBeNull();
-//   });
-
-//   it("Should return 404 if voting for a recommendation that doesn't exist", async () => {
-//     const result = await supertest(app)
-//       .post(`/recommendations/${0}/downvote`)
-//       .send();
-
-//     expect(result.status).toBe(404);
-//   });
-// });
-
-// describe("Test GET /recommendations", () => {
-//   it("Should return 200 if get recommendations correctly", async () => {
-//     await recommendationListFactory();
-
-//     const result = await supertest(app).get(`/recommendations`);
-//     const resultLength = result.body.length;
-
-//     expect(result.status).toBe(200);
-//     expect(resultLength).toBeLessThan(11);
-//     expect(result.body).toBeInstanceOf(Object);
-//   });
-// });
-
-// describe("Test GET /recommendations/:id", () => {
-//   it("Should return 200 if get the recommendation correctly", async () => {
-//     const createdRecommendation = await recommendationFactory();
-
-//     const result = await supertest(app)
-//       .get(`/recommendations/${createdRecommendation.id}`)
-//       .send();
-
-//     expect(result.status).toBe(200);
-//     expect(result.body).toMatchObject(createdRecommendation);
-//   });
-
-//   it("Should return 404 if get a recommendation that doesn't exist", async () => {
-//     const result = await supertest(app).get(`/recommendations/${0}`).send();
-
-//     expect(result.status).toBe(404);
-//   });
-// });
-
-// describe("Test GET /recommendations/top/:amount", () => {
-//   it("Should return 200 if get recommendations correctly", async () => {
-//     const amount = 20;
-//     await recommendationListFactory();
-
-//     const result = await supertest(app).get(`/recommendations/top/${amount}`);
-//     const isResultArraySorted = isArraySorted(result.body);
-
-//     expect(isResultArraySorted).toBe(true);
-//     expect(result.body.length).toBeLessThanOrEqual(amount);
-//     expect(result.status).toBe(200);
-//     expect(result.body).toBeInstanceOf(Object);
-//   });
-// });
-
-// describe("Test GET /recommendations/random", () => {
-//   it("Should return 200 if get the recommendation with score greater than 10 correctly", async () => {
-//     await recommendationListFactory();
-//     jest.spyOn(Math, "random").mockImplementationOnce(() => 0.4);
-
-//     const result = await supertest(app).get(`/recommendations/random`).send();
-
-//     expect(result.status).toBe(200);
-//     expect(result.body).toBeInstanceOf(Object);
-//     expect(result.body.score).toBeGreaterThan(10);
-//   });
-
-//   it("Should return 200 if get the recommendation with score smaller than 10 correctly", async () => {
-//     await recommendationListFactory();
-//     jest.spyOn(Math, "random").mockImplementationOnce(() => 0.8);
-
-//     const result = await supertest(app).get(`/recommendations/random`).send();
-
-//     expect(result.status).toBe(200);
-//     expect(result.body).toBeInstanceOf(Object);
-//     expect(result.body.score).toBeLessThanOrEqual(10);
-//   });
-
-//   it("Should return any if only exist recommendation with score greater than 10", async () => {
-//     await recommendationListFactory();
-//     updateRecommendationList(11);
-
-//     jest.spyOn(Math, "random").mockImplementationOnce(() => 0.8);
-//     const result = await supertest(app).get(`/recommendations/random`).send();
-
-//     expect(result.status).toBe(200);
-//     expect(result.body).toBeInstanceOf(Object);
-//   });
-
-//   it("Should return any if only exist recommendation with score smaller than 10", async () => {
-//     await recommendationListFactory();
-//     updateRecommendationList(1);
-
-//     jest.spyOn(Math, "random").mockImplementationOnce(() => 0.4);
-//     const result = await supertest(app).get(`/recommendations/random`).send();
-
-//     expect(result.status).toBe(200);
-//     expect(result.body).toBeInstanceOf(Object);
-//   });
-
-//   it("Should return 404 if get a recommendation that doesn't exist", async () => {
-//     const result = await supertest(app).get(`/recommendations/random`).send();
-
-//     expect(result.status).toBe(404);
-//   });
-// });
-
-// afterAll(async () => {
-//   await prisma.$disconnect();
-// });
+afterAll(async () => {
+  await prisma.$disconnect();
+});
