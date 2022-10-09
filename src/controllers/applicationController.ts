@@ -44,6 +44,5 @@ export async function deleteApplication(req: Request, res: Response) {
 export async function viewApplication(req: Request, res: Response) {
   const applicationId = Number(req.params.id);
   const application = await applicationService.viewApplication(applicationId);
-  console.log(application)
   return res.status(200).send({application});
 }

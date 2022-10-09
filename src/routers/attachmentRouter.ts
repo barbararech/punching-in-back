@@ -6,11 +6,11 @@ import { attachmentSchema } from "../schemas/attachmentSchema";
 
 const router = Router();
 
-// router.get(
-//   "/attachments",
-//   tokenValidationMiddleware,
-//   attachmentController.viewAttachments
-// );
+router.get(
+  "/applications/:id/attachments",
+  tokenValidationMiddleware,
+  attachmentController.viewAttachmentsByApplicationId
+);
 
 router.post(
   "/attachments/new",

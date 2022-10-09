@@ -8,10 +8,12 @@ export async function newAttachment(req: Request, res: Response) {
   return res.sendStatus(201);
 }
 
-// export async function viewAttachments(req: Request, res: Response) { 
-//   const attachments = await attachmentService.viewattachments();
-//   return res.status(201).send({ attachments });
-// }
+export async function viewAttachmentsByApplicationId(req: Request, res: Response) { 
+  const applicationId = Number(req.params.id);
+  const attachments = await attachmentService.viewAttachmentsByApplicationId(applicationId);
+  return res.status(200).send({ attachments });
+}
+
 
 // export async function editAttachment(req: Request, res: Response) {
 //   const attachmentId = Number(req.params.id);

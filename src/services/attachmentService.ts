@@ -7,10 +7,10 @@ export async function newAttachment(attachment: INewAttachment) {
   return;
 }
 
-// export async function viewattachments() {
-//   const attachments = await attachmentRepository.getAllattachments();
-//   return attachments;
-// }
+export async function viewAttachmentsByApplicationId(applicationId:number) {
+  const attachments = await attachmentRepository.getAttachmentsByApplicationId(applicationId);
+  return attachments;
+}
 
 // export async function editattachment(attachment: any, attachmentId: number) {
 //   const updatedattachment = await attachmentRepository.updateattachmentById(

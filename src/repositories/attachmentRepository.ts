@@ -9,3 +9,10 @@ export async function insertAttachments(attachments: INewAttachment) {
   });
 }
 
+export async function getAttachmentsByApplicationId(applicationId: number) {
+  return prisma.attachments.findMany({
+    where: {
+      applicationId: applicationId,
+    },
+  });
+}
