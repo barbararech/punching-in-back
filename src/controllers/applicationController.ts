@@ -40,3 +40,10 @@ export async function deleteApplication(req: Request, res: Response) {
   await applicationService.deleteApplication(applicationId);
   return res.status(200).send("Application delete successfully!");
 }
+
+export async function viewApplication(req: Request, res: Response) {
+  const applicationId = Number(req.params.id);
+  const application = await applicationService.viewApplication(applicationId);
+  console.log(application)
+  return res.status(200).send({application});
+}

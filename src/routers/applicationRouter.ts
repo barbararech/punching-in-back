@@ -13,6 +13,13 @@ router.get(
 );
 
 router.get(
+  "/applications/:id",
+  tokenValidationMiddleware,
+  applicationController.viewApplication
+);
+
+
+router.get(
   "/applications/archived",
   tokenValidationMiddleware,
   applicationController.viewArchivedApplications

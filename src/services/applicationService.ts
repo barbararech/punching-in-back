@@ -47,6 +47,10 @@ export async function archiveApplicationToggle(
 
 export async function deleteApplication(applicationId: number) {
   await applicationRepository.deleteApplicationById(applicationId);
-
   return;
+}
+
+export async function viewApplication(applicationId: number) {
+  const application = await applicationRepository.viewApplicationById(applicationId);
+  return application;
 }

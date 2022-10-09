@@ -98,3 +98,11 @@ export async function deleteApplicationById(applicationId: number) {
     },
   });
 }
+
+export async function viewApplicationById(applicationId: number) {
+  return prisma.applications.findUnique({
+    where: {
+      id: applicationId,
+    },
+  });
+}
