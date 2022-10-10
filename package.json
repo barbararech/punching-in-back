@@ -2,7 +2,7 @@
   "name": "projeto22-puching-in-back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test:integration": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test -- jest -i --testPathPattern=tests/integration",
     "test:unit": "dotenv -e .env.test jest -- -i --coverage --collectCoverageFrom=src/services/recommendationsService.ts --testPathPattern=tests/unit",
