@@ -7,6 +7,7 @@ import authRouter from "./routers/authRouter";
 import applicationRouter from "./routers/applicationRouter";
 import attachmentRouter from "./routers/attachmentRouter";
 import stepRouter from "./routers/stepRouter";
+import e2eRouter from "./routers/e2eRouter";
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ app.use(errorHandlerMiddleware);
 
 if (process.env.NODE_ENV === "test") {
   console.log("test environment");
-  // app.use(e2eRouter);
+  app.use(e2eRouter);
 }
 
 export default app;

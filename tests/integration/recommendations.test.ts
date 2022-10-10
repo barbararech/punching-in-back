@@ -2,7 +2,6 @@ import supertest from "supertest";
 import app from "../../src/app";
 import createUserFactory from "./factories/createUserFactory";
 import { prisma } from "../../src/database";
-import { conflictError } from "../../src/utils/errorUtils";
 
 beforeEach(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE "users"  RESTART IDENTITY CASCADE`;
