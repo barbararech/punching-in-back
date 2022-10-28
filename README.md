@@ -19,6 +19,7 @@ An app for you to manage yours applications to job offfers!
   - Typescript
   - JWT
   - PostgreSQL
+  - Prisma
   - Jest
   - Supertest  
 
