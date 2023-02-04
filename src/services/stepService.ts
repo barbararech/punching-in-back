@@ -1,5 +1,5 @@
-import * as stepRepository from "../repositories/stepRepository";
-import { INewStep } from "../types/stepsTypes";
+import * as stepRepository from '../repositories/stepRepository';
+import { INewStep, Step } from '../types/stepsTypes';
 
 export async function newStep(step: INewStep) {
   await stepRepository.insertsteps(step);
@@ -11,7 +11,7 @@ export async function viewStepsByApplicationId(applicationId: number) {
   return steps;
 }
 
-export async function editStep(steps: INewStep) {
+export async function editStep(steps: Step[]) {
   await stepRepository.updateStep(steps);
   return;
 }

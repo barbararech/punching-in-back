@@ -1,16 +1,16 @@
-import joi from "joi";
+import BaseJoi from 'joi';
+import JoiDate from '@joi/date';
+// import joi from 'joi';
 
-const Joi = require('joi')
-    .extend(require('@joi/date'));
+const joi = BaseJoi.extend(JoiDate);
+// const Joi = require('joi').extend(require('@joi/date'));
 
 export const step = joi.object({
-  id:joi.number(),
+  id: joi.number(),
   name: joi.string().required(),
-  deadline: Joi.date().format('DD/MM/YYYY').required(),
+  deadline: joi.date().format('DD/MM/YYYY').required(),
   itsFinished: joi.boolean().required(),
   applicationId: joi.number().required(),
 });
 
-export const stepSchema = joi
-  .object()
-  .keys({ steps: joi.array().items(step) });
+export const stepSchema = joi.object().keys({ steps: joi.array().items(step) });

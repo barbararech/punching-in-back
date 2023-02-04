@@ -1,30 +1,29 @@
-import { Router } from "express";
-import { tokenValidationMiddleware } from "../middlewares/authValidationMiddleware";
-import { middleware } from "../middlewares/schemasValidationMiddleware";
-import * as attachmentController from "../controllers/attachmentController";
-import { attachmentSchema } from "../schemas/attachmentSchema";
+import { Router } from 'express';
+import { tokenValidationMiddleware } from '../middlewares/authValidationMiddleware';
+import { middleware } from '../middlewares/schemasValidationMiddleware';
+import * as attachmentController from '../controllers/attachmentController';
+import { attachmentSchema } from '../schemas/attachmentSchema';
 
 const router = Router();
 
 router.get(
-  "/applications/:id/attachments",
+  '/applications/:id/attachments',
   tokenValidationMiddleware,
-  attachmentController.viewAttachmentsByApplicationId
+  attachmentController.viewAttachmentsByApplicationId,
 );
 
 router.post(
-  "/attachments/new",
+  '/attachments/new',
   tokenValidationMiddleware,
   middleware(attachmentSchema),
-  attachmentController.newAttachment
+  attachmentController.newAttachment,
 );
 
 router.put(
-  "/attachments/edit",
+  '/attachments/edit',
   tokenValidationMiddleware,
   middleware(attachmentSchema),
-  attachmentController.editAttachment
+  attachmentController.editAttachment,
 );
-
 
 export default router;

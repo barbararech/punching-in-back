@@ -1,4 +1,4 @@
-import { prisma } from "../database";
+import { prisma } from '../database';
 
 export async function truncate() {
   await prisma.$executeRaw`TRUNCATE TABLE users CASCADE`;

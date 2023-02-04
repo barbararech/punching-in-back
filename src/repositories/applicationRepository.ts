@@ -1,7 +1,7 @@
-import { prisma } from "../database";
-import { INewApplication } from "../types/applicationsTypes";
-import { INewAttachment } from "../types/attachmentsTypes";
-import { INewStep } from "../types/stepsTypes";
+import { prisma } from '../database';
+import { INewApplication } from '../types/applicationsTypes';
+// import { INewAttachment } from '../types/attachmentsTypes';
+// import { INewStep } from '../types/stepsTypes';
 
 export async function insertNewApplication(application: INewApplication) {
   return prisma.applications.create({
@@ -39,7 +39,7 @@ export async function getAllUnarchivedApplications(userId: number) {
         },
       },
     },
-    orderBy: { id: "desc" },
+    orderBy: { id: 'desc' },
   });
 }
 
@@ -73,14 +73,11 @@ export async function getAllArchivedApplications(userId: number) {
         },
       },
     },
-    orderBy: { id: "desc" },
+    orderBy: { id: 'desc' },
   });
 }
 
-export async function updateArchiveApplicationById(
-  application: INewApplication,
-  applicationId: number
-) {
+export async function updateArchiveApplicationById(application: INewApplication, applicationId: number) {
   return prisma.applications.update({
     where: {
       id: applicationId,
@@ -107,10 +104,7 @@ export async function viewApplicationById(applicationId: number) {
   });
 }
 
-export async function updateApplication(
-  application: INewApplication,
-  applicationId: number
-) {
+export async function updateApplication(application: INewApplication, applicationId: number) {
   return prisma.applications.update({
     where: {
       id: applicationId,

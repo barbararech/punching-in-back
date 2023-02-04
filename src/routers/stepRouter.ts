@@ -1,29 +1,15 @@
-import { Router } from "express";
-import { tokenValidationMiddleware } from "../middlewares/authValidationMiddleware";
-import { middleware } from "../middlewares/schemasValidationMiddleware";
-import * as stepController from "../controllers/stepController";
-import { stepSchema } from "../schemas/stepSchema";
+import { Router } from 'express';
+import { tokenValidationMiddleware } from '../middlewares/authValidationMiddleware';
+import { middleware } from '../middlewares/schemasValidationMiddleware';
+import * as stepController from '../controllers/stepController';
+import { stepSchema } from '../schemas/stepSchema';
 
 const router = Router();
 
-router.get(
-  "/applications/:id/steps",
-  tokenValidationMiddleware,
-  stepController.viewStepsByApplicationId
-);
+router.get('/applications/:id/steps', tokenValidationMiddleware, stepController.viewStepsByApplicationId);
 
-router.post(
-  "/steps/new",
-  tokenValidationMiddleware,
-  middleware(stepSchema),
-  stepController.newstep
-);
+router.post('/steps/new', tokenValidationMiddleware, middleware(stepSchema), stepController.newstep);
 
-router.put(
-  "/steps/edit",
-  tokenValidationMiddleware,
-  middleware(stepSchema),
-  stepController.editStep
-);
+router.put('/steps/edit', tokenValidationMiddleware, middleware(stepSchema), stepController.editStep);
 
 export default router;

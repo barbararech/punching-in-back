@@ -1,5 +1,5 @@
-import { prisma } from "../database";
-import { INewStep } from "../types/stepsTypes";
+import { prisma } from '../database';
+import { INewStep, Step } from '../types/stepsTypes';
 
 export async function insertsteps(steps: INewStep) {
   return prisma.steps.createMany({
@@ -15,10 +15,9 @@ export async function getStepsByApplicationId(applicationId: number) {
   });
 }
 
-export async function updateStep(steps: any) {
-  console.log(steps)
+export async function updateStep(steps: Step[]) {
   return await prisma.$transaction(
-    steps.map((step: any) =>
+    steps.map((step: Step) =>
       prisma.steps.upsert({
         where: { id: step.id || 0 },
         update: {
@@ -27,8 +26,7 @@ export async function updateStep(steps: any) {
           itsFinished: step.itsFinished,
         },
         create: step,
-      })
-    )
+      }),
+    ),
   );
 }
-

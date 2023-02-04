@@ -1,7 +1,7 @@
-import { prisma } from "../database";
-import { INewApplication } from "../types/applicationsTypes";
-import { INewAttachment } from "../types/attachmentsTypes";
-import { INewStep } from "../types/stepsTypes";
+import { prisma } from '../database';
+import { INewAttachment, Attachment } from '../types/attachmentsTypes';
+// import { INewApplication } from '../types/applicationsTypes';
+// import { INewStep } from '../types/stepsTypes';
 
 export async function insertAttachments(attachments: INewAttachment) {
   return prisma.attachments.createMany({
@@ -17,10 +17,9 @@ export async function getAttachmentsByApplicationId(applicationId: number) {
   });
 }
 
-export async function updateAttachment(attachments: any) {
-  console.log(attachments);
+export async function updateAttachment(attachments: Attachment[]) {
   return await prisma.$transaction(
-    attachments.map((attachment: any) =>
+    attachments.map((attachment: Attachment) =>
       prisma.attachments.upsert({
         create: attachment,
         update: {
@@ -29,7 +28,7 @@ export async function updateAttachment(attachments: any) {
           type: attachment.type,
         },
         where: { id: attachment.id || 0 },
-      })
-    )
+      }),
+    ),
   );
 }
