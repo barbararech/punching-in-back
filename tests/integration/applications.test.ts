@@ -55,11 +55,11 @@ describe('Test GET /applications', () => {
 
     const result = await supertest(app).get(`/applications`).set(config);
 
-    const filteredApplications = result.body.applications.filter(
+    const unarchivedApplications = result.body.applications.filter(
       (application: Applications) => application.itsArchived === false,
     );
 
-    if (filteredApplications.length !== 0) {
+    if (unarchivedApplications.length !== 0) {
       expect(result.body.applications[0]).toEqual(
         expect.objectContaining({
           itsArchived: false,
@@ -67,10 +67,40 @@ describe('Test GET /applications', () => {
       );
     }
     expect(result.status).toBe(200);
-    expect(result.body.applications).toHaveLength(filteredApplications.length);
+    expect(result.body.applications).toHaveLength(unarchivedApplications.length);
   });
 
-  it('Should return 403 if get unarchived applications  without send token', async () => {
+  it('Should return 403 if get unarchived applications without send token', async () => {
+    await applicationFactory.createApplicationCollectionFactory();
+
+    const result = await supertest(app).get(`/applications`).set({});
+
+    expect(result.status).toBe(403);
+  });
+});
+
+describe('Test GET /applications/archived', () => {
+  it('Should return 200 if get archived applications correctly', async () => {
+    const { config } = await applicationFactory.createApplicationCollectionFactory();
+
+    const result = await supertest(app).get(`/applications/archived`).set(config);
+
+    const archivedApplications = result.body.applications.filter(
+      (application: Applications) => application.itsArchived === true,
+    );
+
+    if (archivedApplications.length !== 0) {
+      expect(result.body.applications[0]).toEqual(
+        expect.objectContaining({
+          itsArchived: true,
+        }),
+      );
+    }
+    expect(result.status).toBe(200);
+    expect(result.body.applications).toHaveLength(archivedApplications.length);
+  });
+
+  it('Should return 403 if get archived applications without send token', async () => {
     await applicationFactory.createApplicationCollectionFactory();
 
     const result = await supertest(app).get(`/applications`).set({});
@@ -84,8 +114,6 @@ afterAll(async () => {
 });
 
 // router.get('/applications/:id/view', tokenValidationMiddleware, applicationController.viewApplication);
-
-// router.get('/applications/archived', tokenValidationMiddleware, applicationController.viewArchivedApplications);
 
 // router.put('/applications/:id/archive', tokenValidationMiddleware, applicationController.archiveApplicationToggle);
 
