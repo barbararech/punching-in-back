@@ -26,6 +26,12 @@ export async function archiveApplicationToggle(application: INewApplication, app
 }
 
 export async function deleteApplication(applicationId: number) {
+  const application = await applicationRepository.viewApplicationById(applicationId);
+
+  if (!application) {
+    throw notFoundError('Application not found');
+  }
+
   await applicationRepository.deleteApplicationById(applicationId);
   return;
 }

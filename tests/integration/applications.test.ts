@@ -146,6 +146,32 @@ describe('Test GET /applications/:id/view', () => {
   });
 });
 
+describe('Test GET /applications/:id/delete', () => {
+  it('Should return 200 if delete application correctly', async () => {
+    const { prismaApplication, config } = await applicationFactory.createPrismaApplicationFactory();
+
+    const result = await supertest(app).delete(`/applications/${prismaApplication.id}/delete`).set(config);
+
+    expect(result.status).toBe(200);
+  });
+
+  it('Should return 403 if delte application without send token', async () => {
+    const { prismaApplication } = await applicationFactory.createPrismaApplicationFactory();
+
+    const result = await supertest(app).delete(`/applications/${prismaApplication.id}/delete`).set({});
+
+    expect(result.status).toBe(403);
+  });
+
+  it('Should return 404 if delete application that does not exist', async () => {
+    const { config } = await applicationFactory.createPrismaApplicationFactory();
+
+    const result = await supertest(app).delete(`/applications/${4}/delete`).set(config);
+
+    expect(result.status).toBe(404);
+  });
+});
+
 afterAll(async () => {
   await prisma.$disconnect();
 });
