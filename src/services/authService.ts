@@ -30,3 +30,9 @@ export async function checkPassword(user: Users, password: string) {
   }
   return;
 }
+
+export const authService = {
+  signUp,
+  signIn,
+  checkPassword,
+};
