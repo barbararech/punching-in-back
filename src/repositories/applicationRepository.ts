@@ -1,7 +1,5 @@
 import { prisma } from '../database';
 import { INewApplication } from '../types/applicationsTypes';
-// import { INewAttachment } from '../types/attachmentsTypes';
-// import { INewStep } from '../types/stepsTypes';
 
 export async function insertNewApplication(application: INewApplication) {
   return prisma.applications.create({

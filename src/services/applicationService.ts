@@ -20,6 +20,12 @@ export async function viewArchivedApplications(userId: number) {
 }
 
 export async function archiveApplicationToggle(application: INewApplication, applicationId: number) {
+  const createdApplication = await applicationRepository.viewApplicationById(applicationId);
+
+  if (!createdApplication) {
+    throw notFoundError('Application not found');
+  }
+
   const updatedApplication = await applicationRepository.updateArchiveApplicationById(application, applicationId);
 
   return updatedApplication;
@@ -51,3 +57,13 @@ export async function updateApplication(application: INewApplication, applicatio
 
   return updatedApplication;
 }
+
+// export async function verifyIfApplicationExist(applicationId: number) {
+//   const application = await applicationRepository.viewApplicationById(applicationId);
+
+//   if (application === null) {
+//     throw notFoundError('Application not found');
+//   }
+
+//   return application;
+// }

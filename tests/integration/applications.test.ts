@@ -146,7 +146,7 @@ describe('Test GET /applications/:id/view', () => {
   });
 });
 
-describe('Test GET /applications/:id/delete', () => {
+describe('Test DELETE /applications/:id/delete', () => {
   it('Should return 200 if delete application correctly', async () => {
     const { prismaApplication, config } = await applicationFactory.createPrismaApplicationFactory();
 
@@ -155,7 +155,7 @@ describe('Test GET /applications/:id/delete', () => {
     expect(result.status).toBe(200);
   });
 
-  it('Should return 403 if delte application without send token', async () => {
+  it('Should return 403 if delete application without send token', async () => {
     const { prismaApplication } = await applicationFactory.createPrismaApplicationFactory();
 
     const result = await supertest(app).delete(`/applications/${prismaApplication.id}/delete`).set({});
@@ -172,12 +172,45 @@ describe('Test GET /applications/:id/delete', () => {
   });
 });
 
+describe('Test PUT /applications/:id/archive', () => {
+  it('Should return 200 if archive application toggle is working correctly', async () => {
+    const { application, prismaApplication, config } = await applicationFactory.createPrismaApplicationFactory();
+
+    const requestBody = { ...application, itsArchived: !prismaApplication.itsArchived };
+    const result = await supertest(app)
+      .put(`/applications/${prismaApplication.id}/archive`)
+      .send(requestBody)
+      .set(config);
+
+    const { body: updatedApplication } = await supertest(app)
+      .get(`/applications/${prismaApplication.id}/view`)
+      .set(config);
+
+    expect(result.status).toBe(200);
+    expect(updatedApplication.application.itsArchived).toBe(!prismaApplication.itsArchived);
+  });
+
+  it('Should return 403 if archive application toggle without send token', async () => {
+    const { application, prismaApplication } = await applicationFactory.createPrismaApplicationFactory();
+
+    const requestBody = { ...application, itsArchived: !prismaApplication.itsArchived };
+    const result = await supertest(app).put(`/applications/${prismaApplication.id}/archive`).send(requestBody).set({});
+
+    expect(result.status).toBe(403);
+  });
+
+  it('Should return 404 if archive application that does not exist', async () => {
+    const { application, prismaApplication, config } = await applicationFactory.createPrismaApplicationFactory();
+
+    const requestBody = { ...application, itsArchived: !prismaApplication.itsArchived };
+    const result = await supertest(app).put(`/applications/${4}/archive`).send(requestBody).set(config);
+
+    expect(result.status).toBe(404);
+  });
+});
+
 afterAll(async () => {
   await prisma.$disconnect();
 });
-
-// router.put('/applications/:id/archive', tokenValidationMiddleware, applicationController.archiveApplicationToggle);
-
-// router.delete('/applications/:id/delete', tokenValidationMiddleware, applicationController.deleteApplication);
 
 // router.put('/applications/:id/edit', tokenValidationMiddleware, applicationController.updateApplication);
