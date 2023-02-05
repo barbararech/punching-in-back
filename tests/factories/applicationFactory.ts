@@ -8,8 +8,8 @@ export async function createApplicationFactory() {
   return {
     companyName: faker.company.name(),
     roleName: faker.name.jobTitle(),
-    heardBack: true,
-    itsArchived: false,
+    heardBack: faker.datatype.boolean(),
+    itsArchived: faker.datatype.boolean(),
     priority: priority,
     jobDescription: faker.internet.url(),
     observations: faker.lorem.paragraph(),

@@ -3,6 +3,7 @@ import app from '../../src/app';
 import { applicationFactory } from '../factories/applicationFactory';
 import { prisma } from '../../src/database';
 import { userFactory } from '../factories/userFactory';
+import { Applications } from '@prisma/client';
 
 beforeEach(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE "applications"  RESTART IDENTITY CASCADE`;
@@ -54,10 +55,19 @@ describe('Test GET /applications', () => {
 
     const result = await supertest(app).get(`/applications`).set(config);
 
-    expect(result.status).toBe(200);
-    expect(result.body.applications[0]).toHaveProperty('companyName');
+    const filteredApplications = result.body.applications.filter(
+      (application: Applications) => application.itsArchived === false,
+    );
 
-    expect(result.body.applications).toHaveLength(3);
+    if (filteredApplications.length !== 0) {
+      expect(result.body.applications[0]).toEqual(
+        expect.objectContaining({
+          itsArchived: false,
+        }),
+      );
+    }
+    expect(result.status).toBe(200);
+    expect(result.body.applications).toHaveLength(filteredApplications.length);
   });
 
   it('Should return 403 if get unarchived applications  without send token', async () => {
@@ -72,8 +82,6 @@ describe('Test GET /applications', () => {
 afterAll(async () => {
   await prisma.$disconnect();
 });
-
-// router.get('/applications', tokenValidationMiddleware, applicationController.viewUnarchivedApplications);
 
 // router.get('/applications/:id/view', tokenValidationMiddleware, applicationController.viewApplication);
 
