@@ -53,6 +53,12 @@ export async function viewApplication(applicationId: number) {
 }
 
 export async function updateApplication(application: INewApplication, applicationId: number) {
+  const createdApplication = await applicationRepository.viewApplicationById(applicationId);
+
+  if (!createdApplication) {
+    throw notFoundError('Application not found');
+  }
+
   const updatedApplication = await applicationRepository.updateApplication(application, applicationId);
 
   return updatedApplication;
