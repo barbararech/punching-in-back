@@ -28,7 +28,7 @@ export async function loginUserFactory() {
   const token = jwt.sign({ id: prismaUser.id }, process.env.JWT_SECRET as string);
 
   const config = { Authorization: `Bearer ${token}` };
-  return { token, config };
+  return { token, config, prismaUser };
 }
 
 export const userFactory = {

@@ -12,13 +12,13 @@ export async function newApplication(req: Request, res: Response) {
 export async function viewUnarchivedApplications(req: Request, res: Response) {
   const userId = res.locals.id;
   const applications = await applicationService.viewUnarchivedApplications(userId);
-  return res.status(201).send({ applications });
+  return res.status(200).send({ applications });
 }
 
 export async function viewArchivedApplications(req: Request, res: Response) {
   const userId = res.locals.id;
   const applications = await applicationService.viewArchivedApplications(userId);
-  return res.status(201).send({ applications });
+  return res.status(200).send({ applications });
 }
 
 export async function archiveApplicationToggle(req: Request, res: Response) {
