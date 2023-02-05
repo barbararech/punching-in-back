@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { prisma } from '../../src/database';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export async function createUserFactory() {
   return {
@@ -21,7 +22,17 @@ export async function createPrismaUserFactory() {
   return { user, prismaUser };
 }
 
+export async function loginUserFactory() {
+  const { prismaUser } = await createPrismaUserFactory();
+
+  const token = jwt.sign({ id: prismaUser.id }, process.env.JWT_SECRET as string);
+
+  const config = { Authorization: `Bearer ${token}` };
+  return { token, config };
+}
+
 export const userFactory = {
   createUserFactory,
   createPrismaUserFactory,
+  loginUserFactory,
 };

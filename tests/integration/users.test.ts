@@ -19,7 +19,12 @@ describe('Test POST /sign-up', () => {
     });
 
     expect(result.status).toBe(201);
-    expect(createdUser).toBeInstanceOf(Object);
+    expect(createdUser).toEqual(
+      expect.objectContaining({
+        email: user.email,
+        username: user.username,
+      }),
+    );
   });
 
   it('Should return 409 if registered a user that already exists', async () => {
