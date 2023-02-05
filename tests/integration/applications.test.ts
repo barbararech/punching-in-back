@@ -109,11 +109,46 @@ describe('Test GET /applications/archived', () => {
   });
 });
 
+describe('Test GET /applications/:id/view', () => {
+  it('Should return 200 if get application correctly', async () => {
+    const { prismaApplication, config } = await applicationFactory.createPrismaApplicationFactory();
+
+    const result = await supertest(app).get(`/applications/${prismaApplication.id}/view`).set(config);
+
+    expect(result.status).toBe(200);
+    expect(result.body.application).toEqual(
+      expect.objectContaining({
+        companyName: prismaApplication.companyName,
+        roleName: prismaApplication.roleName,
+        heardBack: prismaApplication.heardBack,
+        itsArchived: prismaApplication.itsArchived,
+        priority: prismaApplication.priority,
+        jobDescription: prismaApplication.jobDescription,
+        observations: prismaApplication.observations,
+      }),
+    );
+  });
+
+  it('Should return 403 if get application without send token', async () => {
+    const { prismaApplication } = await applicationFactory.createPrismaApplicationFactory();
+
+    const result = await supertest(app).get(`/applications/${prismaApplication.id}/view`).set({});
+
+    expect(result.status).toBe(403);
+  });
+
+  it('Should return 404 if get application that does not exist', async () => {
+    const { config } = await applicationFactory.createPrismaApplicationFactory();
+
+    const result = await supertest(app).get(`/applications/${4}/view`).set(config);
+
+    expect(result.status).toBe(404);
+  });
+});
+
 afterAll(async () => {
   await prisma.$disconnect();
 });
-
-// router.get('/applications/:id/view', tokenValidationMiddleware, applicationController.viewApplication);
 
 // router.put('/applications/:id/archive', tokenValidationMiddleware, applicationController.archiveApplicationToggle);
 
