@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
 import { signUp } from '../../src/services/authService';
 import { userRepository } from '../../src/repositories/userRepository';
-import createUserFactory from './factories/createUserFactory';
+import { userFactory } from '../factories/userFactory';
 import { conflictError } from '../../src/utils/errorUtils';
 
 describe('Test POST /sign-up', () => {
@@ -11,7 +11,7 @@ describe('Test POST /sign-up', () => {
   });
 
   it('Should return 200 if  create user correctly', async () => {
-    const user = await createUserFactory();
+    const user = await userFactory.createUserFactory();
     /* eslint-disable-next-line */
     jest.spyOn(userRepository, 'findUserByEmail').mockImplementationOnce((): any => {});
     /* eslint-disable-next-line */
@@ -22,7 +22,7 @@ describe('Test POST /sign-up', () => {
   });
 
   it('Should return 409 if registered a user that already exists', async () => {
-    const user = await createUserFactory();
+    const user = await userFactory.createUserFactory();
 
     /* eslint-disable-next-line */
     jest.spyOn(userRepository, 'findUserByEmail').mockImplementationOnce((): any => {

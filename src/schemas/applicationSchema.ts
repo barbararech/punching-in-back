@@ -8,6 +8,4 @@ export const applicationSchema = joi.object({
   priority: joi.string().valid('high', 'medium', 'low').required(),
   jobDescription: joi.string().uri().required(),
   observations: joi.string(),
-  // attachments: joi.object().required(),
-  // steps: joi.object().required(),
 });
