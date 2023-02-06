@@ -17,6 +17,22 @@ export async function getAttachmentsByApplicationId(applicationId: number) {
   });
 }
 
+export async function getAllAttachments() {
+  return prisma.attachments.findMany({
+    select: {
+      id: true,
+      type: true,
+      applications: {
+        select: {
+          companyName: true,
+          roleName: true,
+          userId: true,
+        },
+      },
+    },
+  });
+}
+
 export async function updateAttachment(attachments: Attachment[]) {
   return await prisma.$transaction(
     attachments.map((attachment: Attachment) =>

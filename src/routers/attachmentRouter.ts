@@ -12,6 +12,8 @@ router.get(
   attachmentController.viewAttachmentsByApplicationId,
 );
 
+router.get('/attachments/all', tokenValidationMiddleware, attachmentController.viewUserAttachments);
+
 router.post(
   '/attachments/new',
   tokenValidationMiddleware,

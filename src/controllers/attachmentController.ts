@@ -13,6 +13,12 @@ export async function viewAttachmentsByApplicationId(req: Request, res: Response
   return res.status(200).send({ attachments });
 }
 
+export async function viewUserAttachments(req: Request, res: Response) {
+  const userId = res.locals.id;
+  const attachments = await attachmentService.viewAttachmentsByUserId(userId);
+  return res.status(200).send({ attachments });
+}
+
 export async function editAttachment(req: Request, res: Response) {
   const attachments = req.body.attachments;
   await attachmentService.editAttachment(attachments);

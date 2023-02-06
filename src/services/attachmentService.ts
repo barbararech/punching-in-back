@@ -15,6 +15,12 @@ export async function viewAttachmentsByApplicationId(applicationId: number) {
   return attachments;
 }
 
+export async function viewAttachmentsByUserId(userId: number) {
+  const attachments = await attachmentRepository.getAllAttachments();
+  const userAttachments = attachments.filter((attachment) => attachment.applications.userId === userId);
+  return userAttachments;
+}
+
 export async function editAttachment(attachments: Attachment[]) {
   await attachmentRepository.updateAttachment(attachments);
   return;
