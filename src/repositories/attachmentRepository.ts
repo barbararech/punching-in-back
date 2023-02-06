@@ -21,7 +21,9 @@ export async function getAllAttachments() {
   return prisma.attachments.findMany({
     select: {
       id: true,
+      name: true,
       type: true,
+      link: true,
       applications: {
         select: {
           companyName: true,
@@ -30,6 +32,7 @@ export async function getAllAttachments() {
         },
       },
     },
+    orderBy: { id: 'desc' },
   });
 }
 
