@@ -16,3 +16,7 @@ export async function tokenValidationMiddleware(req: Request, res: Response, nex
   res.locals.id = id;
   next();
 }
+
+export const authValidationMiddleware = {
+  tokenValidationMiddleware,
+};

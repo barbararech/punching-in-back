@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { authService, signIn, signUp } from '../../src/services/authService';
+import { signIn, signUp } from '../../src/services/authService';
 import { userRepository } from '../../src/repositories/userRepository';
 import { userFactory } from '../factories/userFactory';
 import { conflictError, unauthorizedError } from '../../src/utils/errorUtils';

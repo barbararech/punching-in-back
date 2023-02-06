@@ -110,3 +110,13 @@ export async function updateApplication(application: INewApplication, applicatio
     data: application,
   });
 }
+
+export const applicationRepository = {
+  insertNewApplication,
+  getAllUnarchivedApplications,
+  getAllArchivedApplications,
+  updateArchiveApplicationById,
+  deleteApplicationById,
+  viewApplicationById,
+  updateApplication,
+};

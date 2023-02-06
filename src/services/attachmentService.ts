@@ -1,5 +1,6 @@
 import * as attachmentRepository from '../repositories/attachmentRepository';
 import { INewAttachment, Attachment } from '../types/attachmentsTypes';
+import { verifyIfApplicationExistById } from '../utils/verifyApplication';
 
 export async function newAttachment(attachment: INewAttachment) {
   /* eslint-disable-next-line no-console */
@@ -9,6 +10,7 @@ export async function newAttachment(attachment: INewAttachment) {
 }
 
 export async function viewAttachmentsByApplicationId(applicationId: number) {
+  await verifyIfApplicationExistById(applicationId);
   const attachments = await attachmentRepository.getAttachmentsByApplicationId(applicationId);
   return attachments;
 }
